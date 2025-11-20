@@ -18,7 +18,7 @@ module karatsuba_lower_overlapfree #(parameter N=32, parameter k=4,parameter m=8
   reg [2*N-1 :0] temp1[1:0];
   reg [2*N-1 :0] temp2[1:0];
   wire [(N/k):0]A0,A1,A2,A3;
-  wire [(N1/k):0]B0,B1,B2,B3;
+  wire [(N/k):0]B0,B1,B2,B3;
   wire [N-1:0]r;
   reg [2*N-1:0]G0,G1,G2; 
   
