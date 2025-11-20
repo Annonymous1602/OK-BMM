@@ -17,8 +17,8 @@ module bmm_overlapfree_karatsuba_booth #(parameter N = 32,
     reg [2*N-1:0]ql_reg;
     wire [2*N - 1:0] Th,T, q;
     reg [2*N-1:0] T_reg;    
-    reg [N-1:0]A,B,M,q_reg;
-    reg [2*N-1:0] constant_temp;
+    reg [N-1:0]A,B,M;
+    reg [2*N-1:0] q_reg,constant_temp;
     reg [2*N-1:0] Z;
     
     always@(posedge clk)
@@ -38,9 +38,9 @@ module bmm_overlapfree_karatsuba_booth #(parameter N = 32,
     
     assign Th = T_reg>>(t-b);
     
-   karatsuba_upper_overlapfree #(2*N, k, 2*m,N) inst2 (.A(Th) , .B(constant_temp) ,  .q(q));
+   karatsuba_upper_overlapfree #(2*N, k, 2*m,N+a+b) inst2 (.A(Th) , .B(constant_temp) ,  .q(q));
    
-   karatsuba_lower_overlapfree #(N, k, m) insta3 (.A(q_reg) , .B(N), .f(N+1) , .out(ql));
+   karatsuba_lower_overlapfree #(N, k, m) insta3 (.A(q_reg) , .B(M), .f(N+1) , .out(ql));
     
    assign Zm = T_reg - ql_reg;
    
@@ -52,4 +52,3 @@ module bmm_overlapfree_karatsuba_booth #(parameter N = 32,
             Z = Z - M;
     end
 endmodule
-
