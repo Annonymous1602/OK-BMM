@@ -1,3 +1,4 @@
+
 module karatsuba_overlapfree #(parameter N=32, parameter k=4,parameter m=8)(input [N-1:0]A,B, output [2*N-1:0]out);
 
   
@@ -146,5 +147,3 @@ module karatsuba_overlapfree #(parameter N=32, parameter k=4,parameter m=8)(inpu
    
   assign out = (G2*(r**2)) + ((G1 - G0 - G2)*r) + G0;
 endmodule
-
-
