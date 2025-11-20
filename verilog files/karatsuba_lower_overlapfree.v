@@ -1,14 +1,13 @@
-module karatsuba_lower_overlapfree #(parameter N=32, parameter k=4,parameter m=8) (input [N-1:0]A,input [31:0]B,f, output [2*N-1:0]out);
+module karatsuba_lower_overlapfree #(parameter N=32, parameter k=4,parameter m=8) (input [N-1:0]A,input [N-1:0]B,input [31:0]f, output [2*N-1:0]out);
 
-  
- localparam N1 = 32;
+ 
     
   wire [N/k+1:0] a0[2:0];
   wire [N/k+1:0] a1[2:0];
   wire [N/k+1:0] a2[2:0];
-  wire [N1/k+1:0] b0[2:0]; 
-  wire [N1/k+1:0] b1[2:0]; 
-  wire [N1/k+1:0] b2[2:0];
+  wire [N/k+1:0] b0[2:0]; 
+  wire [N/k+1:0] b1[2:0]; 
+  wire [N/k+1:0] b2[2:0];
   wire [ 2*N/k+3:0] e0[2:0]; 
   wire [ 2*N/k+3:0] e1[2:0]; 
   wire [2*N/k+3:0] e2[2:0];
@@ -30,10 +29,10 @@ module karatsuba_lower_overlapfree #(parameter N=32, parameter k=4,parameter m=8
   assign A1 = A[((N/2)-1):(N/k)];
   assign A0 = A[((N/k)-1):0];
   
-  assign B3 = B[(N1-1):(N1-(N1/k))];
-  assign B2 = B[(N1-(N1/k)-1):(N1/2)];
-  assign B1 = B[((N1/2)-1):(N1/k)];
-  assign B0 = B[((N1/k)-1):0];
+  assign B3 = B[(N-1):(N-(N/k))];
+  assign B2 = B[(N-(N/k)-1):(N/2)];
+  assign B1 = B[((N/2)-1):(N/k)];
+  assign B0 = B[((N/k)-1):0];
   
   
   assign a0[0] = A0;
@@ -138,3 +137,4 @@ module karatsuba_lower_overlapfree #(parameter N=32, parameter k=4,parameter m=8
   assign out =  ( ( G1 - G2 - G0) * r ) + G0 + (A1*B1*(r**2));
                                                 
 endmodule
+
