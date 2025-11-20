@@ -19,7 +19,7 @@ module karatsuba_upper_overlapfree #(parameter N=64, parameter k=4,parameter m=1
   wire [(N/k):0]A0,A1,A2,A3,B0,B1,B2,B3;
   wire [N-1:0]r;
   reg [2*N-1:0]G0,G1,G2; 
-  wire [2*N-1:0]out;
+  reg [2*N-1:0]out;
   
 
   assign r = 2**m;
@@ -129,12 +129,14 @@ module karatsuba_upper_overlapfree #(parameter N=64, parameter k=4,parameter m=1
         temp2[d] = (c2[d]*(r**((d+1)<<1)));
         G2 = G2 + temp2[d];
     end
-    
+    out =  ( ( G1 - G2 - G0) * r ) + ( G2 * (r ** 2)) + ( A2 * B2 * (r ** 4))  + ( A1 * B1 * (r ** 2 ) );
     q = out >> p;
     
   end 
   
    
-  assign out =  ( ( G1 - G2 - G0) * r ) + ( G2 * (r ** 2)) + ( A2 * B2 * (r ** 4))  + ( A1 * B1 * (r ** 2 ) );
+  
                                               
 endmodule
+
+
